@@ -1,0 +1,33 @@
+#allGames{
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px 5px gray;
+    border: thin solid black;
+    padding: 5em;
+}
+
+#searchGames{
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px 5px gray;
+    border: thin solid black;
+    padding: 5em;
+    color: blue;
+}
+
+/* Force cards to be equal height */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Control image size */
+.card img {
+  width: 100%;
+  height: 180px;          /* 👈 adjust this height if needed */
+  object-fit: cover;     /* crops image nicely without distortion */
+}
+
+/* Ensure card content fills evenly */
+.card .list-group {
+  flex-grow: 1;
+}
