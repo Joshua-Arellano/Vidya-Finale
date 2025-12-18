@@ -36,7 +36,7 @@ function Game({ game, removeGame, updateGame, showButtons }) {
     <div className='game-card-wrapper'>
       <div className="card shadow-sm game-card">
 
-          <img className='cartridge-img' src={`/cartridges/${game.platform}.png`} alt=""/>
+          <img className='cartridge-img' src={`cartridges/${game.platform}.png`} alt=""/>
           <div className={`card-img-overlay ${platform}`}>
             <img className='cover-img' src={game.cover} alt="missing_image"/>
           </div>
