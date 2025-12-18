@@ -9,7 +9,7 @@ function AddGame({ addGame }) {
     const [genre, setGenre] = useState('');
     const [releaseYear, setReleaseYear] = useState('');
     const [developer, setDeveloper] = useState('');
-    const [selectedCover, setSelectedCover] = useState(null);
+    const [selectedCover, setSelectedCover] = useState('');
 
     const doWork = () => {
         const newGame = {
@@ -28,7 +28,7 @@ function AddGame({ addGame }) {
         setGenre('');
         setReleaseYear('');
         setDeveloper('');
-        setSelectedCover(null);
+        setSelectedCover('');
     }
 
     

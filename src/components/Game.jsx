@@ -11,6 +11,7 @@ function Game({ game, removeGame, updateGame, showButtons }) {
     const [genre, setGenre] = useState('');
     const [releaseYear, setReleaseYear] = useState('');
     const [developer, setDeveloper] = useState('');
+    const [cover, setCover] = useState('');
 
     useEffect(() => {
         setTitle(game.title);
@@ -18,6 +19,7 @@ function Game({ game, removeGame, updateGame, showButtons }) {
         setGenre(game.genre);
         setReleaseYear(game.releaseYear);
         setDeveloper(game.developer);
+        setCover(game.cover);
     }, [game]);
 
     const saveGame = () => {
@@ -28,7 +30,7 @@ function Game({ game, removeGame, updateGame, showButtons }) {
           genre,
           releaseYear: parseInt(releaseYear),
           developer,
-          cover: game.cover 
+          cover
         });
         setEditMode(false);
     };
