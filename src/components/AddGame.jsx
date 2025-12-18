@@ -11,7 +11,8 @@ function AddGame({ addGame }) {
     const [developer, setDeveloper] = useState('');
     const [selectedCover, setSelectedCover] = useState();
 
-    const doWork = () => {
+    const doWork = async () => {
+      const coverBase64 = selectedCover ? await toBase64(selectedCover) : '';
         const newGame = {
             'id':nanoid(),
             title,
@@ -19,7 +20,7 @@ function AddGame({ addGame }) {
             genre,
             releaseYear: parseInt(releaseYear),
             developer,
-            cover: URL.createObjectURL(selectedCover)
+            cover: coverBase64
         };
         addGame(newGame);
 

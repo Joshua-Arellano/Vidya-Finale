@@ -23,6 +23,7 @@ function Game({ game, removeGame, updateGame, showButtons }) {
     }, [game]);
 
     const saveGame = () => {
+      setEditMode(false);
         updateGame({
           ...game,
           title,
@@ -32,7 +33,6 @@ function Game({ game, removeGame, updateGame, showButtons }) {
           developer,
           cover
         });
-        setEditMode(false);
     };
 
   return (
