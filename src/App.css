@@ -1,33 +1,299 @@
-#allGames{
-    border-radius: 5%;
-    box-shadow: 5px 5px 5px 5px gray;
-    border: thin solid black;
-    padding: 5em;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* -----------------------------------------------------
+   GLOBAL STYLES
+----------------------------------------------------- */
+
+body, h2, h3, .list-group-item, label, input, select, button {
+  color: #f8f8f8 !important;
 }
 
-#searchGames{
-    border-radius: 5%;
-    box-shadow: 5px 5px 5px 5px gray;
-    border: thin solid black;
-    padding: 5em;
-    color: blue;
+body {
+  font-family: 'Press Start 2P', monospace;
+  padding-bottom: 50px;
+  background: radial-gradient(circle at center, #4a4a4a 0%, #0a0a0a 100%);
+  background-attachment: fixed;
+  text-shadow: 1px 1px 0 #000;
 }
 
-/* Force cards to be equal height */
-.card {
-  height: 100%;
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 3px,
+    transparent 5px
+  );
+  z-index: 9999;
+}
+
+h2, h3, .retro-title {
+  color: #ff6b6b;
+  text-shadow: 2px 2px #000, 0 0 10px #ff4444cc;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.retro-title {
+  font-size: 1.3rem;
+}
+
+/* -----------------------------------------------------
+   PANELS (Search & Add Game)
+----------------------------------------------------- */
+
+#searchGames,
+.retro-panel {
+  background: #1b1b1b;
+  border: 3px solid #888;
+  border-radius: 12px;
+  margin-right: 10px;
+  padding: 20px;
+  box-shadow: 0 0 25px #ff4f4f33, inset 0 0 10px #000;
+}
+
+.retro-panel {
+  padding: 25px;
+}
+
+/* Labels */
+#searchGames label,
+.retro-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #f0f0f0;
+}
+
+/* Form Controls */
+#searchGames .form-control,
+#searchGames .form-select,
+.retro-input {
+  background: #0d0d0d !important;
+  border: 2px solid #777 !important;
+  color: #fff !important;
+  font-size: 0.7rem;
+  padding: 6px;
+}
+
+#searchGames .form-control:focus,
+#searchGames .form-select:focus,
+.retro-input:focus {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 10px #ff6b6b88;
+}
+
+/* Buttons */
+#searchGames button,
+.retro-btn,
+.game-card button {
+  font-family: 'Press Start 2P', monospace;
+  background: #ff4f4f;
+  border: 3px solid #b30000;
+  color: white;
+  border-radius: 6px;
+  transition: 0.2s;
+  box-shadow: 0 0 10px #ff4f4f55;
+  cursor: pointer;
+}
+
+#searchGames button,
+.retro-btn {
+  font-size: 0.8rem;
+  padding: 10px 20px;
+}
+
+.game-card button {
+  font-size: 0.7rem;
+  padding: 6px 10px;
+}
+
+#searchGames button:hover,
+.retro-btn:hover {
+  background: #ff7b7b;
+  transform: translateY(-2px);
+}
+
+/* -----------------------------------------------------
+   GAME GRID & CARDS
+----------------------------------------------------- */
+
+.games-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.game-card-wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 
-/* Control image size */
-.card img {
-  width: 100%;
-  height: 180px;          /* 👈 adjust this height if needed */
-  object-fit: cover;     /* crops image nicely without distortion */
+.game-card,
+.game-card * {
+  background-color: #1a1a1a !important;
+  color: #f8f8f8 !important;
 }
 
-/* Ensure card content fills evenly */
-.card .list-group {
-  flex-grow: 1;
+.game-card {
+  width: 200px;
+  border: 3px solid #888;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 0 15px #000, inset 0 0 10px #000;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #ff4f4f55, inset 0 0 10px #000;
+}
+
+.card-img-overlay {
+  pointer-events: none;
+}
+
+.game-card .list-group,
+.game-card .list-group-item,
+.game-card .card-footer {
+  background: #0f0f0f !important;
+  border-color: #444 !important;
+}
+
+.game-card .list-group-item {
+  border: none !important;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.game-card .card-footer {
+  border-top: 1px solid #444 !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* -----------------------------------------------------
+   CONSOLE-SPECIFIC OVERLAYS
+----------------------------------------------------- */
+
+img {
+  max-width: 100%;
+}
+
+.PSX {
+  position: relative !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+}
+
+.N64 {
+  width: 42%;
+  height: 20%;
+  left: 29% !important;
+  top: 4.5% !important;
+  padding: 0 !important;
+}
+
+.NES {
+  width: 44%;
+  height: 30%;
+  left: 41% !important;
+  top: 1.5% !important;
+  padding: 0 !important;
+}
+
+.Genesis {
+  width: 68%;
+  height: 30%;
+  left: 16% !important;
+  top: 1.5% !important;
+  padding: 0 !important;
+}
+
+.SNES {
+  width: 57%;
+  height: 10%;
+  left: 22% !important;
+  top: 1% !important;
+  padding: 0 !important;
+}
+
+/* -----------------------------------------------------
+   LAYOUT & RESPONSIVE
+----------------------------------------------------- */
+
+.app-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.search-sidebar {
+  width: 280px;
+  transition: transform 0.3s ease-in-out;
+  margin-top: 45px;
+  margin-left: 10px;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* -----------------------------------------------------
+   SCROLLBAR
+----------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #777;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* -----------------------------------------------------
+   MOBILE
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .search-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: white;
+    z-index: 999;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+  }
+
+  .search-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .toggle-search-btn {
+    margin-bottom: 15px;
+  }
+
+  .app-layout {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1400px) {
+  .games-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

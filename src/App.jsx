@@ -14,60 +14,10 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [keywords, setKeywords] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
-
-  useEffect(() => {
-    if(localStorage){
-      const gamesLocalStorage = JSON.parse(localStorage.getItem('games'));
-
-      if(gamesLocalStorage){
-        saveGames(gamesLocalStorage);
-      }else{
-        saveGames(games);
-      }
-  }
-}, []);
-
-const addGame = (newGame) => {
-  const updatedGames = [...allGames, newGame];
-  saveGames(updatedGames);
-}
-const saveGames = (games) => {
-  setAllGames(games);
-  setSearchResults(games);
-  if(localStorage){
-    localStorage.setItem('games', JSON.stringify(games));
-    console.log("Saved to local storage");
-  }
-}
-
-const removeGame = (gameToDelete) => {
-  const updatedGamesArray = allGames.filter(game => game.id !== gameToDelete.id);
-  saveGames(updatedGamesArray);
-}
-
-const updateGame = (updatedGame) => {
-  const updatedGameArray = allGames.map(game => game.id === updatedGame.id ? {...game, ...updatedGame} : game);
-  saveGames(updatedGameArray);
-}
-
-const searchGames = () => {
-  let searchResults = allGames;
-
-  if (keywords) {
-    const keywordLower = keywords.toLowerCase();
-    searchResults = searchResults.filter(game =>
-      game.title.toLowerCase().includes(keywordLower)
-    );
-  }
-
-  if (releaseYear) {
-    searchResults = searchResults.filter(game =>
-      game.releaseYear === parseInt(releaseYear)
-    );
-  }
-
-  setSearchResults(searchResults);
-};
+  const [genre, setGenre] = useState('');
+  const [developer, setDeveloper] = useState('');
+  const [showButtons, setShowButtons] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
 const games = [{
   id: nanoid(),
@@ -84,39 +34,39 @@ const games = [{
   genre: 'Action-Adventure',
   releaseYear: 1998,
   developer: 'Nintendo',
-  cover: './assets/oot.jpg'
+  cover: 'images/oot.jpg'
 }, {
   id: nanoid(),
-  title: 'Gex',
-  platform: 'PSX, Saturn',
+  title: 'Gex-64: Enter the Gecko',
+  platform: 'N64',
   genre: 'Platformer',
   releaseYear: 1995,
   developer: 'Crystal Dynamics',
-  cover: './assets/gex.jpg'
+  cover: 'images/gex64.jpg'
 }, {
   id: nanoid(),
-  title: 'IQ Intelligent Qube',
+  title: 'Silent Hill',
   platform: 'PSX',
-  genre: 'Puzzle',
-  releaseYear: 1997,
-  developer: 'Genius Sonority',
-  cover: './assets/iq.jpg'
+  genre: 'Horror',
+  releaseYear: 1999,
+  developer: 'Konami',
+  cover: 'images/silent-hill.png'
 }, {
   id: nanoid(),
   title: 'Castlevania: Symphony of the Night',
-  platform: 'PSX, Saturn',
+  platform: 'PSX',
   genre: 'Action-Adventure',
   releaseYear: 1997,
   developer: 'Konami',
-  cover: './assets/sotn.jpg'
+  cover: '/images/sotn.png'
 }, {
   id: nanoid(),
   title: 'Phantasy Star II',
-  platform: 'Sega Genesis',
+  platform: 'Genesis',
   genre: 'RPG',
   releaseYear: 1989,
   developer: 'Sega',
-  cover: './assets/phs2.jpg'
+  cover: '/images/phs2.png'
 }, {
   id: nanoid(),
   title: 'Super Mario World',
@@ -124,47 +74,124 @@ const games = [{
   genre: 'Platformer',
   releaseYear: 1990,
   developer: 'Nintendo',
-  cover: './assets/smw.jpg'
+  cover: 'images/super-metroid.jpg'
 }, {
   id: nanoid(),
-  title: 'Balloon Fight',
+  title: 'Super Mario Bros. 3',
   platform: 'NES',
   genre: 'Action',
   releaseYear: 1984,
   developer: 'Nintendo',
-  cover: './assets/balloonfight.jpg'
+  cover: 'images/smb3.jpg'
 }]
 
+useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('games'));
+    stored ? saveGames(stored) : saveGames(games);
+}, []);
+
+const saveGames = (games) => {
+  setAllGames(games);
+  setSearchResults(games);
+  localStorage.setItem('games', JSON.stringify(games));
+}
+
+const addGame = (newGame) => saveGames([...allGames, newGame]);
+
+const removeGame = (gameToDelete) => saveGames(allGames.filter(g => g.id !== gameToDelete.id));
+
+const updateGame = (updatedGame) => saveGames(allGames.map(g => g.id === updatedGame.id ? updatedGame : g));
+
+const searchGames = () => {
+  let results = allGames;
+
+  if (keywords) {
+    const key = keywords.toLowerCase();
+    results = results.filter(g => g.title.toLowerCase().includes(key));
+  }
+
+if (releaseYear) results = results.filter(g => g.releaseYear === parseInt(releaseYear));
+    if (genre) results = results.filter(g => g.genre === genre);
+    if (developer) results = results.filter(g => g.developer === developer);
+
+  setSearchResults(results);
+};
+
+
+
 return (
-    <div className="container">
-      <div className='row my-3' id='searchGames'>
-        <h3>Search Games</h3>
-        <div className="col-md-4">
-          <label htmlFor="txtKeywords">Search by Title</label>
-          <input type="text" className='form-control' placeholder='Enter Game Title' onChange={(e) => setKeywords(e.currentTarget.value)} value={keywords} />
-        </div>
-        <div className="col-md-4">
-          <select value={releaseYear} onChange={ (e) => setReleaseYear(e.currentTarget.value)} className='form-select'>
-            <option value=''>Select Release Year</option>
-            {_(allGames).map(game => game.releaseYear).sort().uniq().map(year => <option key={year} value={year}>{year}</option>).value()}
-          </select>
-        </div>
-        <div className='col-md-4'>
-          <button type='button' className='btn btn-primary btn-lg' onClick={searchGames}>Search Games <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></button>
+  <div className="app-layout">
+    
+    {/* Toggle button for mobile */}
+    <button 
+      className="toggle-search-btn btn btn-primary d-md-none"
+      onClick={() => setShowSearch(prev => !prev)}
+    >
+      &#9776;
+    </button>
+
+    {/* Sidebar Search Panel */}
+    <div className={`search-sidebar ${showSearch ? 'open' : ''}`}>
+      <div className='card p-3 mb-4 shadow-sm' id='searchGames'>
+        <h3 className='mb-3'>Search Games</h3>
+        <div className="row g-3">
+
+          <div className="col-12">
+            <label htmlFor="txtKeywords">Search by Title</label>
+            <input type="text" className='form-control' placeholder='Enter Game Title' onChange={(e) => setKeywords(e.currentTarget.value)} value={keywords} />
+          </div>
+
+          <div className="col-12">
+            <label htmlFor="selYear">Select Release Year</label>
+            <select value={releaseYear} onChange={ (e) => setReleaseYear(e.currentTarget.value)} className='form-select' id="selYear">
+              <option value=''>Select Release Year</option>
+              {_(allGames).map(game => game.releaseYear).sort().uniq().map(year => <option key={year} value={year}>{year}</option>).value()}
+            </select>
+          </div>
+
+          <div className="col-12">
+            <label htmlFor="txtGenre">Select Genre</label>
+            <select value={genre} onChange={ (e) => setGenre(e.currentTarget.value)} className='form-select' id="txtGenre">
+              <option value=''>Select Genre</option>
+              {_(allGames).map(game => game.genre).sort().uniq().map(genre => <option key={genre} value={genre}>{genre}</option>).value()}
+            </select>
+          </div>
+
+          <div className="col-12">
+            <label htmlFor="txtDeveloper">Select Developer</label>
+            <select value={developer} onChange={ (e) => setDeveloper(e.currentTarget.value)} className='form-select' id="txtDeveloper">
+              <option value=''>Select Developer</option>
+              {_(allGames).map(game => game.developer).sort().uniq().map(developer => <option key={developer} value={developer}>{developer}</option>).value()}
+            </select>
+          </div>
+
+          <div className="col-12 text-end">
+            <button type='button' className='btn btn-primary btn-lg w-100' onClick={searchGames}>
+              Search Games <FontAwesomeIcon icon={faSearch}/>
+            </button>
+          </div>
+
         </div>
       </div>
-      <div className="row" id='allGames'>
-        <h2>Current Games</h2>
-        {searchResults && searchResults.map((game) =>
-        (
-          <div className="col-md-3" key={game.id}>
-            <Game game={game} removeGame={removeGame} updateGame={updateGame}/>
-          </div>)
-        )}
-      </div>
-      <AddGame addGame={addGame}/>
     </div>
-  )
+
+    {/* Main Content */}
+    <div className="main-content">
+      <AddGame addGame={addGame}/>
+      <div className="d-flex justify-content-between align-items-center mb-3" id='allGames'>
+        <h2>Current Games</h2>
+        <button className='btn btn-warning' onClick={() => setShowButtons(prev => !prev)}>Edit Games</button>
+      </div>
+
+      <div className='games-grid'>
+        {searchResults.map(game => (
+          <Game key={game.id} game={game} removeGame={removeGame} updateGame={updateGame} showButtons={showButtons}/>
+        ))}
+      </div>
+    </div>
+
+  </div>
+);
 }
 
 export default App

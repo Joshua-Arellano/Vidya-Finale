@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFloppyDisk} from '@fortawesome/free-solid-svg-icons';
+import '../index.css'
+import '../App.css'
 
-function Game(props) {
+function Game({ game, removeGame, updateGame, showButtons }) {
     const [editMode, setEditMode] = useState(false);
     const [title, setTitle] = useState('');
     const [platform, setPlatform] = useState('');
@@ -11,44 +13,65 @@ function Game(props) {
     const [developer, setDeveloper] = useState('');
 
     useEffect(() => {
-        setTitle(props.game.title);
-        setPlatform(props.game.platform);
-        setGenre(props.game.genre);
-        setReleaseYear(props.game.releaseYear);
-        setDeveloper(props.game.developer);
-    }, []);
+        setTitle(game.title);
+        setPlatform(game.platform);
+        setGenre(game.genre);
+        setReleaseYear(game.releaseYear);
+        setDeveloper(game.developer);
+    }, [game]);
 
     const saveGame = () => {
+        updateGame({
+          ...game,
+          title,
+          platform,
+          genre,
+          releaseYear: parseInt(releaseYear),
+          developer
+        });
         setEditMode(false);
-        const updatedGame = {title:title, platform:platform, genre:genre, releaseYear:parseInt(releaseYear), developer:developer, id:props.game.id, cover:props.game.cover};
-        props.updateGame(updatedGame);
-    }
+    };
+
   return (
-    <div>
-      <div className="card">
-            <img src={props.game.cover} alt="missing_image" className='card-image-top mx-auto'/>
-            {!editMode &&
+    <div className='game-card-wrapper'>
+      <div className="card shadow-sm game-card">
+
+          <img className='cartridge-img' src={`/cartridges/${game.platform}.png`} alt=""/>
+          <div className={`card-img-overlay ${platform}`}>
+            <img className='cover-img' src={game.cover} alt="missing_image"/>
+          </div>
+          {!editMode && (
+            <>
             <ul className='list-group list-group-flush'>
-              <li className='list-group-item'>{props.game.title}</li>
-              <li className ='list-group-item'>{props.game.platform}</li>
-              <li className='list-group-item'>{props.game.genre}</li>
-              <li className='list-group-item'>{props.game.releaseYear}</li>
-              <li className='list-group-item'>{props.game.developer}</li>
-              <button type='button' className='btn btn-sm btn-danger btn-lg' onClick={() => props.removeGame(props.game)}>Delete</button>
-              <button type='button' className='btn btn-sm btn-warning btn-lg' onClick={() => setEditMode(true)}>Edit</button>
+              <li className='list-group-item fw-bold'>{game.title}</li>
+              <li className='list-group-item'>{game.platform}</li>
+              <li className='list-group-item'>{game.genre}</li>
+              <li className='list-group-item'>{game.releaseYear}</li>
+              <li className='list-group-item'>{game.developer}</li>
             </ul>
-            }
-            {editMode && <ul className='list-group list-group-flush'>
-              <li className='list-group-item text-center'><input type='text' className='form-control' value={title}onChange={(e) => setTitle(e.currentTarget.value)} /></li>
-              <li className='list-group-item text-center'><input type='text' className='form-control' value={platform} onChange={(e) => setPlatform(e.currentTarget.value)} /></li>
-              <li className='list-group-item text-center'><input type='text' className='form-control' value={genre} onChange={(e) => setGenre(e.currentTarget.value)} /></li>
-              <li className='list-group-item text-center'><input type='text' className='form-control' value={releaseYear} onChange={(e) => setReleaseYear(e.currentTarget.value)} /></li>
-              <li className='list-group-item text-center'><input type='text' className='form-control' value={developer} onChange={(e) => setDeveloper(e.currentTarget.value)} /></li>
-              <li className='list-group-item text-center'><button type='button' className='btn btn-secondary' onClick={saveGame}>Save<FontAwesomeIcon icon={faFloppyDisk} /></button></li>
-            </ul>}
+            {showButtons && (
+            <div className='card-footer d-flex justify-content-between p-2'>
+              <button className='btn btn-sm btn-danger btn-sm' onClick={() => removeGame(game)}>Delete</button>
+              <button className='btn btn-sm btn-warning btn-sm' onClick={() => setEditMode(true)}>Edit</button>
+            </div>
+             )}
+          </>
+          )}
+        {editMode && (
+          <div className='p-2'>
+          <input className="form-control mb-2" value={title} onChange={e => setTitle(e.target.value)} />
+            <input className="form-control mb-2" value={platform} onChange={e => setPlatform(e.target.value)} />
+            <input className="form-control mb-2" value={genre} onChange={e => setGenre(e.target.value)} />
+            <input className="form-control mb-2" value={releaseYear} onChange={e => setReleaseYear(e.target.value)} />
+            <input className="form-control mb-2" value={developer} onChange={e => setDeveloper(e.target.value)} />
+            <button className='btn btn-secondary w-100' onClick={saveGame}>
+              Save <FontAwesomeIcon icon={faFloppyDisk} />
+            </button>
+        </div>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
 export default Game

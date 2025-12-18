@@ -1,9 +1,9 @@
 {
-  "homepage": "https://Joshua-Arellano.github.io/Vidya-finale",
   "name": "finale-project-vidya",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://Joshua-Arellano.github.io/Vidya-finale",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -17,12 +17,14 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "bootstrap": "^5.3.8",
+    "express": "^5.2.1",
     "gh-pages": "^6.3.0",
     "lodash": "^4.17.21",
     "nanoid": "^5.1.6",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "steamgriddb": "^2.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
