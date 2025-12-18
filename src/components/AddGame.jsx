@@ -9,7 +9,7 @@ function AddGame({ addGame }) {
     const [genre, setGenre] = useState('');
     const [releaseYear, setReleaseYear] = useState('');
     const [developer, setDeveloper] = useState('');
-    const [selectedCover, setSelectedCover] = useState('');
+    const [selectedCover, setSelectedCover] = useState();
 
     const doWork = () => {
         const newGame = {
@@ -28,9 +28,12 @@ function AddGame({ addGame }) {
         setGenre('');
         setReleaseYear('');
         setDeveloper('');
-        setSelectedCover('');
+        setSelectedCover();
     }
 
+    const imageUpdate = (e) => {
+      setSelectedCover(e.target.files[0]);
+    }
     
   return (
     <div className="retro-panel mt-5 p-4" id="addGame">
@@ -92,8 +95,10 @@ function AddGame({ addGame }) {
           <label className="retro-label">Cover Image</label>
           <input
             type="file"
+            name='file'
+            id='fileUpload'
             className="form-control retro-input"
-            onChange={(e) => setSelectedCover(e.target.files[0])}
+            onChange={imageUpdate}
           />
         </div>
 
