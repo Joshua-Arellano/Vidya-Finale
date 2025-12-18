@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/Joshua-Arellano/Vidya-Finale",
+  "homepage": "https://Joshua-Arellano.github.io/Vidya-Finale",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
