@@ -26,7 +26,7 @@ const games = [{
   genre: 'Platformer',
   releaseYear: 1998,
   developer: 'Interactive Studios',
-  cover: '/images/glover.jpg'
+  cover: 'images/glover.jpg'
 }, {
   id: nanoid(),
   title: 'The Legend of Zelda: Ocarina of Time',
@@ -34,7 +34,7 @@ const games = [{
   genre: 'Action-Adventure',
   releaseYear: 1998,
   developer: 'Nintendo',
-  cover: '/images/oot.jpg'
+  cover: 'images/oot.jpg'
 }, {
   id: nanoid(),
   title: 'Gex-64: Enter the Gecko',
@@ -42,7 +42,7 @@ const games = [{
   genre: 'Platformer',
   releaseYear: 1995,
   developer: 'Crystal Dynamics',
-  cover: '/images/gex64.jpg'
+  cover: 'images/gex64.jpg'
 }, {
   id: nanoid(),
   title: 'Silent Hill',
@@ -50,7 +50,7 @@ const games = [{
   genre: 'Horror',
   releaseYear: 1999,
   developer: 'Konami',
-  cover: '/images/silent-hill.png'
+  cover: 'images/silent-hill.png'
 }, {
   id: nanoid(),
   title: 'Castlevania: Symphony of the Night',
@@ -58,7 +58,7 @@ const games = [{
   genre: 'Action-Adventure',
   releaseYear: 1997,
   developer: 'Konami',
-  cover: '/images/sotn.png'
+  cover: 'images/sotn.png'
 }, {
   id: nanoid(),
   title: 'Phantasy Star II',
@@ -66,7 +66,7 @@ const games = [{
   genre: 'RPG',
   releaseYear: 1989,
   developer: 'Sega',
-  cover: '/images/phs2.png'
+  cover: 'images/phs2.png'
 }, {
   id: nanoid(),
   title: 'Super Mario World',
@@ -74,7 +74,7 @@ const games = [{
   genre: 'Platformer',
   releaseYear: 1990,
   developer: 'Nintendo',
-  cover: '/images/super-metroid.jpg'
+  cover: 'images/super-metroid.jpg'
 }, {
   id: nanoid(),
   title: 'Super Mario Bros. 3',
@@ -82,7 +82,7 @@ const games = [{
   genre: 'Action',
   releaseYear: 1984,
   developer: 'Nintendo',
-  cover: '/images/smb3.jpg'
+  cover: 'images/smb3.jpg'
 }]
 
 useEffect(() => {
