@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://Joshua-Arellano.github.io/finale",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
