@@ -27,7 +27,8 @@ function Game({ game, removeGame, updateGame, showButtons }) {
           platform,
           genre,
           releaseYear: parseInt(releaseYear),
-          developer
+          developer,
+          cover: game.cover 
         });
         setEditMode(false);
     };
